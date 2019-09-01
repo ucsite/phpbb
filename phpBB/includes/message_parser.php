@@ -1539,7 +1539,9 @@ class parse_message extends bbcode_firstpass
 		$upload = $request->file($form_name);
 		$upload_file = (!empty($upload) && $upload['name'] !== 'none' && trim($upload['name']));
 
-		$add_file		= (isset($_POST['add_file'])) ? true : false;
+		// Andy: Add _uc_add_file parameter to to same action as add_file field
+		// $add_file		= (isset($_POST['add_file'])) ? true : false;
+		$add_file		= (isset($_POST['add_file'])) ? true : isset($_REQUEST['_uc_add_file']);
 		$delete_file	= (isset($_POST['delete_file'])) ? true : false;
 
 		// First of all adjust comments if changed

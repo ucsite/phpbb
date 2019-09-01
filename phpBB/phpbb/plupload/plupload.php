@@ -179,7 +179,9 @@ class plupload
 	*/
 	public function is_active()
 	{
-		return $this->request->header('X-PHPBB-USING-PLUPLOAD', false);
+		// Andy: Add parameter _uc_add_file to do same action as x-phpbb-using-plupload header
+		// return $this->request->header('X-PHPBB-USING-PLUPLOAD', false);
+		return $this->request->header('X-PHPBB-USING-PLUPLOAD', false) or $this->request->variable('_uc_add_file', false);
 	}
 
 	/**

@@ -352,7 +352,11 @@ class request implements \phpbb\request\request_interface
 	*/
 	public function is_ajax()
 	{
-		return $this->header('X-Requested-With') == 'XMLHttpRequest';
+		// Andy: Add parameter _ucajax to do the same action as x-request-with header
+		// return $this->header('X-Requested-With') == 'XMLHttpRequest';
+		$reqIndex = \phpbb\request\request_interface::REQUEST;
+		return $this->header('X-Requested-With') == 'XMLHttpRequest'
+			or (isset($this->input[$reqIndex]['_ucajax']) and $this->input[$reqIndex]['_ucajax']);
 	}
 
 	/**
