@@ -1779,7 +1779,16 @@ class parse_message extends bbcode_firstpass
 							$download_url = append_sid("{$phpbb_root_path}download/file.{$phpEx}", 'mode=view&amp;id=' . $new_entry['attach_id']);
 
 							// Send the client the attachment data to maintain state
-							$json_response->send(array('data' => $this->attachment_data, 'download_url' => $download_url));
+							// Andy: Show JSON for ckeditor if required
+							// $json_response->send(array('data' => $this->attachment_data, 'download_url' => $download_url));
+							if ($request->variable('_ucajax', false)) {
+								$funcNum = $request->variable('CKEditorFuncNum', 1);
+								$url = html_entity_decode($download_url);
+								$message = '';
+								echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$url', '$message');</script>";
+							} else {
+								$json_response->send(array('data' => $this->attachment_data, 'download_url' => $download_url));
+							}
 						}
 					}
 				}
