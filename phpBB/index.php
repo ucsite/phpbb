@@ -24,8 +24,15 @@ include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 $user->session_begin();
 $auth->acl($user->data);
 
+// Andy: Load Ucnology's configuration
+require_once($phpbb_root_path . 'ucn.' . $phpEx);
+// Andy: Set default forum ID to 3 if not set
+if (!isset($UCN_DEFAULT_FORUM_ID)) {
+  $UCN_DEFAULT_FORUM_ID = 3;
+}
+
 // Start initial var setup
-$forum_id	= $request->variable('f', 3);
+$forum_id	= $request->variable('f', $UCN_DEFAULT_FORUM_ID);
 $mark_read	= $request->variable('mark', '');
 $start		= $request->variable('start', 0);
 
